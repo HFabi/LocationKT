@@ -1,0 +1,62 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.3.0'
+    ext.anko_version='0.10.8'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    googlePlayServiceVersion = '16.0.0'
+    supportLibVersion = '27.1.1'
+    constraintLayoutVersion = '1.1.3'
+    retrofitVersion = '2.5.0'
+    okHttpVersion = '3.12.0'
+    picassoVersion = '2.71828'
+    timberVersion = '4.7.1'
+
+    appLib = [
+            googlePlayServices       : "com.google.android.gms:play-services-location:$googlePlayServiceVersion",
+            kotlinStdlib             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+
+            multidexCompiler         : 'com.android.support:multidex:1.0.2',
+
+            appcompat                : "com.android.support:appcompat-v7:$supportLibVersion",
+            design                   : "com.android.support:design:$supportLibVersion",
+            supportAnnotations       : "com.android.support:support-annotations:$supportLibVersion",
+            designCardView           : "com.android.support:cardview-v7:$supportLibVersion",
+            constraintLayout         : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
+
+            retrofit                 : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGson             : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitRx               : "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+
+            okhttp                   : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+
+            picasso                  : "com.squareup.picasso:picasso:$picassoVersion",
+
+            timber                   : "com.jakewharton.timber:timber:$timberVersion",
+            ankocommons              : "org.jetbrains.anko:anko:$anko_version"
+    ]
+}

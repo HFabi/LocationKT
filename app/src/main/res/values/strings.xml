@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyLocation</string>
+    <string name="label_latitude">Breitengrad</string>
+    <string name="label_longitude">Längengrad</string>
+    <string name="label_height">Höhe</string>
+    <string name="label_address">Adresse</string>
+    <string name="label_location">Dein Standort</string>
+    <string name="settings">Einstellungen</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="language">Sprache: Kotlin</string>
+</resources>
