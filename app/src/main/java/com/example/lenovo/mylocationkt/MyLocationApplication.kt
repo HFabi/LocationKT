@@ -3,6 +3,9 @@ package com.example.lenovo.mylocationkt
 import android.app.Application
 import timber.log.Timber
 
+/**
+ * Application
+ */
 class MyLocationApplication : Application() {
 
     override fun onCreate() {
@@ -10,6 +13,9 @@ class MyLocationApplication : Application() {
         setupTimber()
     }
 
+    /**
+     * Set up logging.
+     */
     private fun setupTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(object : Timber.DebugTree() {

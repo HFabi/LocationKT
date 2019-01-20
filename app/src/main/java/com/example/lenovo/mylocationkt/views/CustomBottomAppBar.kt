@@ -8,31 +8,37 @@ import android.view.View
 import com.example.lenovo.mylocationkt.R
 import com.example.lenovo.mylocationkt.pxFromDp
 
-
+// Constants
 private val COLOR_SOLID = R.color.colorPrimary
 private val RADIUS_CIRCLE: Float = 35f
 private val RADIUS_CORNER: Float = 5f
 
-class CustomBottomAppBar: View {
+/**
+ * Navigation bar
+ */
+class CustomBottomAppBar : View {
 
-    lateinit var mContext: Context;
-
-    constructor(context: Context) : super(context){
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr){
-        init(context)
-    }
-
+    lateinit var mContext: Context
     private lateinit var fillPaint: Paint
     private lateinit var fillPaint2: Paint
     private lateinit var path: Path
 
+    constructor(context: Context) : super(context) {
+        init(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init(context)
+    }
+
+    /**
+     * Setup
+     * @param context context
+     */
     private fun init(context: Context) {
         this.mContext = context
         fillPaint = Paint()
@@ -68,7 +74,14 @@ class CustomBottomAppBar: View {
         path.close()
     }
 
-
+    /**
+     * Calculates the uniform oval (= circle) around a given center point with the given radius
+     *
+     * @param centerX x coordinate center point
+     * @param centerY y coordinate center point
+     * @param radius  half side length
+     * @return rect
+     */
     private fun getUniformRectF(centerX: Int, centerY: Int, radius: Int): RectF {
         return RectF(
             (centerX - radius).toFloat(),

@@ -4,6 +4,9 @@ import com.example.lenovo.mylocationkt.R
 import com.example.lenovo.mylocationkt.fragments.base.BasePresenter
 import com.example.lenovo.mylocationkt.fragments.base.BaseView
 
+/**
+ * SettingsFragment
+ */
 class SettingsFragment : BaseView(), SettingsView {
 
     private var presenter: SettingsPresenter? = null

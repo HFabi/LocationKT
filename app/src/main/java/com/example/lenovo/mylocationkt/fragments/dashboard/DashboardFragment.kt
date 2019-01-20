@@ -4,6 +4,9 @@ import com.example.lenovo.mylocationkt.R
 import com.example.lenovo.mylocationkt.fragments.base.BasePresenter
 import com.example.lenovo.mylocationkt.fragments.base.BaseView
 
+/**
+ * DashboardFragment
+ */
 class DashboardFragment : BaseView(), DashboardView {
 
     private var presenter: DashboardPresenter? = null

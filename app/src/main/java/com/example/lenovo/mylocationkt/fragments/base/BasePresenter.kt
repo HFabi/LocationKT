@@ -13,6 +13,9 @@ interface BasePresenter {
     fun onDestroy()
 }
 
+/**
+ * BasePresenterImpl
+ */
 open class BasePresenterImpl : CoroutineScope {
     private var job = Job()
     private val mainContext = Dispatchers.Main

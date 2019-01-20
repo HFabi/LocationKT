@@ -8,7 +8,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.lenovo.mylocationkt"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -40,13 +40,6 @@ dependencies {
     implementation appLibs.supportAnnotations
     implementation appLibs.designCardView
     implementation appLibs.constraintLayout
-
-    implementation appLibs.retrofit
-    implementation appLibs.retrofitGson
-    implementation appLibs.retrofitRx
-
-    implementation appLibs.okhttp
-    implementation appLibs.picasso
 
     implementation appLibs.timber
     implementation appLibs.ankocommons

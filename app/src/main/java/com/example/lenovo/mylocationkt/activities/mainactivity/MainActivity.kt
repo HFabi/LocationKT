@@ -10,8 +10,10 @@ import com.example.lenovo.mylocationkt.controllers.PermissionControllerImpl
 import com.example.lenovo.mylocationkt.navigation.Router
 import com.example.lenovo.mylocationkt.navigation.RouterImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
+/**
+ * MainActivity
+ */
 class MainActivity : BaseActivity() {
 
     lateinit var permissionController: PermissionController
@@ -29,7 +31,6 @@ class MainActivity : BaseActivity() {
     override fun getLayoutRes(): Int = R.layout.activity_main
 
     private fun setUpDependencies() {
-        Timber.d("Setting up dependencies")
         router = RouterImpl(this@MainActivity, supportFragmentManager, R.id.main_framelayout)
         permissionController = PermissionControllerImpl(this@MainActivity)
         locationController = LocationControllerImpl(this, permissionController)

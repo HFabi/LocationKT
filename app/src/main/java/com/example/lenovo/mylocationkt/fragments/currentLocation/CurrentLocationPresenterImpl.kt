@@ -10,8 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
+import timber.log.Timber
 
+/**
+ * Presenter for CurrentLocation Fragment
+ */
 class CurrentLocationPresenterImpl : BasePresenterImpl(), CurrentLocationPresenter, AnkoLogger {
 
     private lateinit var view: CurrentLocationView
@@ -28,40 +31,23 @@ class CurrentLocationPresenterImpl : BasePresenterImpl(), CurrentLocationPresent
     }
 
     override fun onResume() {
-        debug("in working+" + isWorking)
+        Timber.d("in working+" + isWorking)
         if (!isWorking) {
-            debug("in working")
+            Timber.d("in working")
             isWorking = true
             launch {
                 val locationUpdate = withContext(Dispatchers.Default) { locationController.startLocationUpdates() }
                 lastLocationUpdate = locationUpdate
+                // report the location to the view
                 view.showLocationUpdate(
                     locationUpdate.latitude.toString(),
                     locationUpdate.longitude.toString(),
                     locationUpdate.addressLine.replace(", ", "\n")
                 )
             }.invokeOnCompletion {
-                debug("onResume onCompletion")
+                Timber.d("onResume onCompletion")
                 isWorking = false
             }
-        }
-    }
-
-    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        when (throwable) {
-            is NoPermissionsException -> view.showError("Please give permission")
-            is AddressDetailNotFoundException -> view.showError("Address details not found")
-            is PlayservicesNotAvailableException -> view.showError("Google PlayServices not found")
-            is LocatingNotEnabledException -> view.showError("Please enable locating in settings")
-            else -> throwable.printStackTrace()
-        }
-    }
-
-    override fun openInMaps() {
-        lastLocationUpdate?.let {
-            val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${it.latitude},${it.longitude}"))
-            mapIntent.setPackage("com.google.android.apps.maps")
-            view.startIntent(mapIntent)
         }
     }
 
@@ -69,5 +55,32 @@ class CurrentLocationPresenterImpl : BasePresenterImpl(), CurrentLocationPresent
         super.onPause()
         locationController.cleanUp()
         isWorking = false
+    }
+
+    /**
+     * Maps exceptions to an error message and shows it.
+     */
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        when (throwable) {
+            is NoPermissionsException -> view.showError("Please give permission")
+            is AddressDetailNotFoundException -> view.showError("Address details not found")
+            is PlayservicesNotAvailableException -> view.showError("Google PlayServices not found")
+            is LocatingNotEnabledException -> view.showError("Please enable locating in settings")
+            else -> {
+                view.showError("Something went wrong")
+                throwable.printStackTrace()
+            }
+        }
+    }
+
+    /**
+     * Opens the last location in google maps.
+     */
+    override fun openInMaps() {
+        lastLocationUpdate?.let {
+            val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${it.latitude},${it.longitude}"))
+            mapIntent.setPackage("com.google.android.apps.maps")
+            view.startIntent(mapIntent)
+        }
     }
 }

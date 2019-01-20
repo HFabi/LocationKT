@@ -17,12 +17,25 @@ interface Router {
     fun goToCurrentLocation()
 }
 
+/**
+ * Router
+ *
+ * Handles the navigation between screens.
+ *
+ * @constructor
+ * @property mainActivity main activity
+ * @property fragmentManager fragment manager
+ * @property container layout container
+ */
 class RouterImpl(val mainActivity: MainActivity, val fragmentManager: FragmentManager, val container: Int) : Router {
 
     override fun goBack() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    /**
+     * Navigate to settings screen.
+     */
     override fun goToSettings() {
         val settingsView = SettingsFragment()
         val settingsPresenter = SettingsPresenterImpl()
@@ -32,6 +45,9 @@ class RouterImpl(val mainActivity: MainActivity, val fragmentManager: FragmentMa
         transit(settingsView as SettingsFragment, false)
     }
 
+    /**
+     * Navigate to dashboard screen.
+     */
     override fun goToDashboard() {
         val dashboardView = DashboardFragment()
         val dashboardPresenter = DashboardPresenterImpl()
@@ -41,6 +57,9 @@ class RouterImpl(val mainActivity: MainActivity, val fragmentManager: FragmentMa
         transit(dashboardView as DashboardFragment, false)
     }
 
+    /**
+     * Navigate to location screen.
+     */
     override fun goToCurrentLocation() {
         val currentLocationView = CurrentLocationFragment()
         val currentLocationPresenter = CurrentLocationPresenterImpl()
@@ -51,9 +70,14 @@ class RouterImpl(val mainActivity: MainActivity, val fragmentManager: FragmentMa
         transit(currentLocationView as CurrentLocationFragment, false)
     }
 
-    private fun transit(fragment: Fragment, addToBackStack:Boolean) {
+    /**
+     * Performs fragment change.
+     * @param fragment fragment
+     * @param addToBackStack true: adds fragment to back stack
+     */
+    private fun transit(fragment: Fragment, addToBackStack: Boolean) {
         val tag: String = fragment.javaClass.name
-        if(addToBackStack) {
+        if (addToBackStack) {
             fragmentManager.beginTransaction()
                 .replace(container, fragment, tag)
                 .addToBackStack(tag)

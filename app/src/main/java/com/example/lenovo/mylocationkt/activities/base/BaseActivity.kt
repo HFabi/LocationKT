@@ -6,17 +6,23 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.example.lenovo.mylocationkt.controllers.PERMISSION_REQUEST
 import com.example.lenovo.mylocationkt.controllers.PermissionListener
-import timber.log.Timber
 
+/**
+ * BaseActivity
+ */
 abstract class BaseActivity : AppCompatActivity() {
 
-  private var permissionListener: PermissionListener? = null
+    private var permissionListener: PermissionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutRes())
     }
 
+    /**
+     * Provides layout resource id
+     * @return resource id
+     */
     abstract fun getLayoutRes(): Int
 
     fun setPermissionListener(permissionListener: PermissionListener) {
@@ -24,13 +30,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        Log.d("TAGING","onRequestPermissionResult")
+        Log.d("Permission", "onRequestPermissionResult")
         if (requestCode == PERMISSION_REQUEST) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("TAGING","Permission granted")
+                Log.d("Permission", "Permission granted")
                 permissionListener?.onPermissionGranted()
             } else {
-                Log.d("TAGING","Permission denied or callback null")
+                Log.d("Permission", "Permission denied or callback null")
                 permissionListener?.onPermissionDenied()
             }
         }
