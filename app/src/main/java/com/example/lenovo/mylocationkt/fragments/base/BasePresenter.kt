@@ -17,6 +17,7 @@ interface BasePresenter {
  * BasePresenterImpl
  */
 open class BasePresenterImpl : CoroutineScope {
+
     private var job = Job()
     private val mainContext = Dispatchers.Main
     protected open val exceptionHandler = CoroutineExceptionHandler { _, throwable ->

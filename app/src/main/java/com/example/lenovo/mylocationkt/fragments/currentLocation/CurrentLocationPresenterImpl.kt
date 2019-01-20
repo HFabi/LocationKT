@@ -64,7 +64,7 @@ class CurrentLocationPresenterImpl : BasePresenterImpl(), CurrentLocationPresent
         when (throwable) {
             is NoPermissionsException -> view.showError("Please give permission")
             is AddressDetailNotFoundException -> view.showError("Address details not found")
-            is PlayservicesNotAvailableException -> view.showError("Google PlayServices not found")
+            is PlayServicesNotAvailableException -> view.showError("Google PlayServices not found")
             is LocatingNotEnabledException -> view.showError("Please enable locating in settings")
             else -> {
                 view.showError("Something went wrong")

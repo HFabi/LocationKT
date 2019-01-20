@@ -8,10 +8,16 @@ import timber.log.Timber
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+// Constants
 val PERMISSION_REQUEST = 0
 
 interface PermissionController {
     suspend fun requestPermission(permission: String): Boolean
+}
+
+interface PermissionListener {
+    fun onPermissionGranted()
+    fun onPermissionDenied()
 }
 
 /**
@@ -65,7 +71,3 @@ class PermissionControllerImpl(private val baseActivity: BaseActivity) : Permiss
     }
 }
 
-interface PermissionListener {
-    fun onPermissionGranted()
-    fun onPermissionDenied()
-}

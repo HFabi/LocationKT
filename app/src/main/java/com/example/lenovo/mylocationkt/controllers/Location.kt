@@ -27,9 +27,25 @@ interface LocationController {
 }
 
 // Exceptions
+/**
+ * Should be thrown when user has no runtime permission.
+ */
 class NoPermissionsException : Exception()
-class PlayservicesNotAvailableException : Exception()
+
+/**
+ * Should be thrown when the google play services are not available
+ * or not up-to-date.
+ */
+class PlayServicesNotAvailableException : Exception()
+
+/**
+ * Should be thrown when locating is disabled in settings.
+ */
 class LocatingNotEnabledException : Exception()
+
+/**
+ * Should be thrown when address details are not available.
+ */
 class AddressDetailNotFoundException : Exception()
 
 /**
@@ -46,10 +62,14 @@ class LocationControllerImpl(
     private var permissionController: PermissionController
 ) : LocationController {
 
+    /** google play services location provider client */
     private var fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(baseActivity);
-    private var geocoder = Geocoder(baseActivity, Locale.getDefault());
+    /** geo coder */
+    private var geocoder = Geocoder(baseActivity, Locale.getDefault())
+    /** callback */
     private var locationCallback: LocationCallback? = null
-    private var isChecking = false
+    /** is waiting for location response */
+    private var isInRequest = false
 
     /**
      * Starts a new location request.
@@ -69,15 +89,15 @@ class LocationControllerImpl(
     @SuppressLint("MissingPermission")
     private suspend fun getLocation(): Location =
         suspendCoroutine<Location> { continuation ->
-            if (!isChecking) {
-                isChecking = true;
+            if (!isInRequest) {
+                isInRequest = true;
                 locationCallback = object : LocationCallback() {
                     override fun onLocationResult(locationResult: LocationResult?) {
                         super.onLocationResult(locationResult)
                         Timber.d("Location Request Success " + locationResult.toString())
                         Log.d("TAGLOC", "Location Request Success ..." + locationResult.toString())
                         locationResult?.lastLocation?.let {
-                            isChecking = false
+                            isInRequest = false
                             fusedLocationProviderClient.removeLocationUpdates(this)
                             return continuation.resume(it)
                         }
@@ -127,7 +147,7 @@ class LocationControllerImpl(
     override fun cleanUp() {
         if (locationCallback != null && fusedLocationProviderClient != null) {
             fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-            isChecking = false
+            isInRequest = false
         }
     }
 
@@ -150,11 +170,11 @@ class LocationControllerImpl(
 
     /**
      * Checks if google play services are available.
-     * @throws PlayservicesNotAvailableException when services not available
+     * @throws PlayServicesNotAvailableException when services not available
      */
     private fun checkPlayServicesAvailable() {
         val resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(baseActivity)
-        if (resultCode != ConnectionResult.SUCCESS) throw PlayservicesNotAvailableException()
+        if (resultCode != ConnectionResult.SUCCESS) throw PlayServicesNotAvailableException()
     }
 
     /**

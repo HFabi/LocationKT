@@ -29,7 +29,8 @@
         <com.example.lenovo.mylocationkt.views.CustomBottomAppBar
                 android:id="@+id/main_custombottomappbar"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"/>
+                android:layout_height="55dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
                 android:id="@+id/main_dashboard_imageview"

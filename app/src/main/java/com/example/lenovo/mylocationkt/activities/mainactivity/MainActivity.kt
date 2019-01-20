@@ -16,8 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : BaseActivity() {
 
+    /** controller for permission requests */
     lateinit var permissionController: PermissionController
+    /** controller for location requests */
     lateinit var locationController: LocationController
+    /** router */
     lateinit var router: Router
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +33,18 @@ class MainActivity : BaseActivity() {
 
     override fun getLayoutRes(): Int = R.layout.activity_main
 
+    /**
+     * Create dependencies.
+     */
     private fun setUpDependencies() {
         router = RouterImpl(this@MainActivity, supportFragmentManager, R.id.main_framelayout)
         permissionController = PermissionControllerImpl(this@MainActivity)
         locationController = LocationControllerImpl(this, permissionController)
     }
 
+    /**
+     * Create click listener for navigation.
+     */
     private fun setUpClickListener() {
         main_floatingactionbutton.setOnClickListener({ router?.goToCurrentLocation() })
         main_dashboard_imageview.setOnClickListener({ router?.goToDashboard() })

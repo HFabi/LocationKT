@@ -12,6 +12,7 @@ import com.example.lenovo.mylocationkt.controllers.PermissionListener
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    /** permission callback */
     private var permissionListener: PermissionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

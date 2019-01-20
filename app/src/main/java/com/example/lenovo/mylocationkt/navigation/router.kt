@@ -29,8 +29,11 @@ interface Router {
  */
 class RouterImpl(val mainActivity: MainActivity, val fragmentManager: FragmentManager, val container: Int) : Router {
 
+    /**
+     * navigate back
+     */
     override fun goBack() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("implement back button")
     }
 
     /**

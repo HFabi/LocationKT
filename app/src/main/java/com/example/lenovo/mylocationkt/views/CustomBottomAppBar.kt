@@ -18,25 +18,42 @@ private val RADIUS_CORNER: Float = 5f
  */
 class CustomBottomAppBar : View {
 
+    /** context */
     lateinit var mContext: Context
+    /** fill color */
     private lateinit var fillPaint: Paint
-    private lateinit var fillPaint2: Paint
+    /** path */
     private lateinit var path: Path
 
+    /**
+     * Constructor
+     * @param context context
+     */
     constructor(context: Context) : super(context) {
         init(context)
     }
 
+    /**
+     * Constructor
+     * @param context context
+     * @param attrs attributes
+     */
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context)
     }
 
+    /**
+     * Constructor
+     * @param context context
+     * @param attrs attributes
+     * @param defStyleAttr style attributes
+     */
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init(context)
     }
 
     /**
-     * Setup
+     * Initialize
      * @param context context
      */
     private fun init(context: Context) {
@@ -47,10 +64,6 @@ class CustomBottomAppBar : View {
         fillPaint.strokeWidth = 3f
         fillPaint.isAntiAlias = true
 
-        fillPaint2 = Paint()
-        fillPaint2.color = ContextCompat.getColor(context, R.color.colorAccent)
-        fillPaint2.style = Paint.Style.FILL_AND_STROKE
-        fillPaint2.strokeWidth = 3f
         setBackgroundColor(Color.TRANSPARENT)
         path = Path()
     }
