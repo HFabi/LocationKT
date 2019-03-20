@@ -7,6 +7,7 @@ import com.example.lenovo.mylocationkt.fragments.base.BaseView
 /**
  * DashboardFragment
  * Add a useless comment v1.1
+ * Add a useless comment
  */
 class DashboardFragment : BaseView(), DashboardView {
 
