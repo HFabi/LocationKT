@@ -6,13 +6,15 @@
         android:background="@color/colorBackgroundBright">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings"
-        android:layout_margin="16dp"
-        android:padding="16dp"
-        style="@style/MyLocation.Text.Title"/>
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            style="@style/MyLocation.Text.Title" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
